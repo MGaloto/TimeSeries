@@ -1,0 +1,115 @@
+---
+title: "PBI Per Capita en Logaritmos"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: simplex
+
+
+---
+
+
+<style>                     
+.navbar {
+  background-color:grey;
+  hover-color:black;
+  border-color:black;
+}
+.navbar-brand {
+color:white!important;
+}
+</style>   
+
+<style type="text/css">
+
+.chart-title {  /* chart_title  */
+   font-size: 15px
+
+</style>
+
+
+```{r setup, include=FALSE}
+
+```
+
+
+
+```{r}
+
+library(flexdashboard)
+library(tidyr)
+library(ggplot2)
+library(readr)  
+library(dplyr)  
+library(plotly)
+library(readxl)
+library(rvest)
+library(rsconnect)
+
+
+```
+
+
+
+
+```{r}
+# Data Set con valores del pib per capita
+
+gdp = read_excel("GDP1.xls") 
+
+# Se crea la Variable año
+
+gdpc = gdp$Año  
+
+# Data Set con valores logaritmicos
+
+gdp =  log(gdp[,2:19])
+
+# Le agrego el año al Data Set logaritmico
+
+gdp$Año = gdpc
+
+
+# --------------------------------------------------------------------------------------- #
+```
+
+
+# Series de Tiempo  {data-orientation=columns}
+
+
+```{r}
+# Grafico Plotly de Series de Tiempo 
+
+grafico = plot_ly(x = ~gdp$Año) %>%
+       add_lines(y = ~gdp$Argentina, name = "Argentina", line = list(shape = "spline")) %>%
+       add_lines(y = gdp$Bolivia, name = "Bolivia", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$Brasil , name = "Brasil", line = list(shape = "spline")) %>%
+       add_lines(y = gdp$Chile , name = "Chile", line = list(shape = "spline")) %>%
+       add_lines(y = gdp$Colombia , name = "Colombia", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$`Costa Rica` , name = "Costa Rica`", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$Dominican , name = "Dominican", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$Ecuador , name = "Ecuador", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$Guatemala , name = "Guatemala", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$Honduras , name = "Honduras", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$México , name = "México", line = list(shape = "spline")) %>%
+       add_lines(y = gdp$Nicaragua , name = "Nicaragua", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$Panamá , name = "Panamá", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp$Perú , name = "Perú", line = list(shape = "spline")) %>%
+       add_lines(y = gdp$Paraguay , name = "Paraguay", line = list(shape = "spline")) %>%
+       add_lines(y = gdp$Uruguay , name = "Uruguay", line = list(shape = "spline")) %>%
+       add_lines(y = gdp$Venezuela , name = "Venezuela", line = list(shape = "spline")) %>%
+       layout(title =  "Pib Per capita en Logaritmos", font = list(size = 12, color = 'black'), 
+              xaxis = list(title = 'Año', 
+                           color = 'black', 
+                           tickangle = -45), 
+              yaxis = list (title = 'Pib Per Capita', color = 'black'), 
+              paper_bgcolor='white', plot_bgcolor='white')
+grafico
+
+
+
+
+
+
+
+```
+
