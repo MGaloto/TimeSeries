@@ -54,11 +54,14 @@ library(rsconnect)
 ```{r}
 # Data Set con valores del pib per capita
 
+setwd('C:/Users/maxig/Desktop/Carpetas/Cursos/Data Science/Curso Estadistica Aplicada/Actividades Estadistica Aplicada/Introduccion a R')
+
+
 gdp = read_excel("GDP1.xls") 
 
-# Se crea la Variable año
+gdp2 = read_excel("GDP2.xls") 
 
-gdpc = gdp$Año  
+gdpaño = gdp$Año
 
 # Data Set con valores logaritmicos
 
@@ -66,14 +69,15 @@ gdp =  log(gdp[,2:19])
 
 # Le agrego el año al Data Set logaritmico
 
-gdp$Año = gdpc
+gdp$Año = gdpaño
+
 
 
 # --------------------------------------------------------------------------------------- #
 ```
 
 
-# Series de Tiempo  {data-orientation=columns}
+# Paises LATAM  {data-orientation=columns}
 
 
 ```{r}
@@ -97,7 +101,7 @@ grafico = plot_ly(x = ~gdp$Año) %>%
        add_lines(y = gdp$Paraguay , name = "Paraguay", line = list(shape = "spline")) %>%
        add_lines(y = gdp$Uruguay , name = "Uruguay", line = list(shape = "spline")) %>%
        add_lines(y = gdp$Venezuela , name = "Venezuela", line = list(shape = "spline")) %>%
-       layout(title =  "Pib Per capita en Logaritmos", font = list(size = 12, color = 'black'), 
+       layout(title =  "Pib Per capita en Logaritmos Paises LATAM", font = list(size = 12, color = 'black'), 
               xaxis = list(title = 'Año', 
                            color = 'black', 
                            tickangle = -45), 
@@ -106,6 +110,50 @@ grafico = plot_ly(x = ~gdp$Año) %>%
 grafico
 
 
+
+
+
+
+
+```
+
+
+# Paises Euro y Asia  {data-orientation=columns}
+
+
+```{r}
+
+grafico2 = plot_ly(x = ~gdp2$Año) %>%
+       add_lines(y = ~gdp2$Australia, name = "Australia", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$Austria, name = "Austria", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Bélgica , name = "Bélgica", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Canadá , name = "Canadá", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$China , name = "China", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$`Alemania` , name = "Alemania`", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$Dinamarca , name = "Dinamarca", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$España , name = "España", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Francia , name = "Francia", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$`Reino Unido` , name = "Reino Unido", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$Grecia , name = "Grecia", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$India , name = "India", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Italia , name = "Italia", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Japón , name = "Japón", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Luxemburgo , name = "Luxemburgo", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$`Países Bajos` , name = "Países Bajos", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Noruega , name = "Noruega", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$`Nueva Zelandia` , name = "Nueva Zelandia", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Portugal , name = "Portugal", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Singapur , name = "Singapur", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$Suecia , name = "Suecia", line = list(shape = "spline")) %>%
+       add_lines(y = gdp2$Turquía , name = "Turquía", line = list(shape = "spline"), visible = 'legendonly') %>%
+       add_lines(y = gdp2$Irlanda , name = "Irlanda", line = list(shape = "spline")) %>%
+       layout(title =  "Pib Per capita en Logaritmos Paises Euro y Asia", font = list(size = 12, color = 'black'), 
+              xaxis = list(title = 'Año', 
+                           color = 'black', 
+                           tickangle = -45), 
+              yaxis = list (title = 'Pib Per Capita', color = 'black'), 
+              paper_bgcolor='white', plot_bgcolor='white')
+grafico2
 
 
 
